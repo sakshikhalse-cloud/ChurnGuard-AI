@@ -1,0 +1,58 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+
+# Virtual environments
+venv/
+.venv/
+backend/venv/
+backend/.venv/
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# macOS
+.DS_Store
+
+# Node
+node_modules/
+frontend/node_modules/
+
+# Local databases / generated data
+*.db
+*.sqlite
+*.sqlite3
+
+# Exported database CSVs
+churn_customers.csv
+customer_metrics.csv
+churn_predictions.csv
+
+# Elastic Beanstalk logs / local config
+.elasticbeanstalk/logs/
+.elasticbeanstalk/app_versions/
+
+# Backups
+*.backup*
+*backup*.js
+
+# Local deployment configuration
+.elasticbeanstalk/
+
+# Old project backups
+frontend_old_backup/
+
+# Old/temporary project versions
+**/*_backup*
+**/*-backup*
+**/*before_*
+**/*_before_*
+**/frontend_backup_*/
+**/frontend_old_backup/
+
+# ML model files
+*.pkl
+*.joblib

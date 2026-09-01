@@ -1,0 +1,3293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="ChurnGuard AI Customer Retention Intelligence Platform"
+    >
+
+    <title>
+        ChurnGuard | AI Customer Intelligence
+    </title>
+
+
+    <!-- ==============================
+         GOOGLE FONTS
+    =============================== -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <!-- ==============================
+         FONT AWESOME
+    =============================== -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+
+    <!-- ==============================
+         CSS
+    =============================== -->
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================
+     APPLICATION LOADER
+========================================== -->
+
+<div
+    id="appLoader"
+    class="app-loader"
+>
+
+    <div class="loader-logo">
+
+        <i class="fa-solid fa-shield-heart"></i>
+
+    </div>
+
+    <h2>ChurnGuard</h2>
+
+    <p>Initializing AI Intelligence Engine</p>
+
+    <div class="loader-bar">
+
+        <span></span>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================
+     APP
+========================================== -->
+
+<div
+    id="app"
+    class="app hidden"
+>
+
+
+    <!-- =====================================
+         SIDEBAR
+    ====================================== -->
+
+    <aside
+        id="sidebar"
+        class="sidebar"
+    >
+
+
+        <!-- BRAND -->
+
+        <div class="sidebar-brand">
+
+            <button
+                id="sidebarToggle"
+                class="sidebar-toggle"
+                type="button"
+                title="Toggle Sidebar"
+            >
+
+                <i class="fa-solid fa-bars"></i>
+
+            </button>
+
+
+            <div class="brand-logo">
+
+                <i class="fa-solid fa-shield-heart"></i>
+
+            </div>
+
+
+            <div class="brand-text">
+
+                <h2>
+                    ChurnGuard
+                </h2>
+
+                <span>
+                    AI INTELLIGENCE
+                </span>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- NAVIGATION -->
+
+        <nav
+            id="mainNavigation"
+            class="sidebar-navigation"
+        >
+
+
+            <span class="nav-section-label">
+                INTELLIGENCE
+            </span>
+
+
+            <!-- DASHBOARD -->
+
+            <button
+                class="nav-item active"
+                type="button"
+                data-page="dashboard"
+            >
+
+                <span class="nav-icon">
+
+                    <i class="fa-solid fa-chart-pie"></i>
+
+                </span>
+
+                <span class="nav-text">
+                    Dashboard
+                </span>
+
+                <span class="nav-indicator"></span>
+
+            </button>
+
+
+
+            <!-- CUSTOMERS -->
+
+            <button
+                class="nav-item"
+                type="button"
+                data-page="customers"
+            >
+
+                <span class="nav-icon">
+
+                    <i class="fa-solid fa-users"></i>
+
+                </span>
+
+                <span class="nav-text">
+                    Customers
+                </span>
+
+                <span
+                    id="customerNavCount"
+                    class="nav-badge"
+                >
+                    --
+                </span>
+
+            </button>
+
+
+
+            <!-- GEOGRAPHY -->
+
+            <button
+                class="nav-item"
+                type="button"
+                data-page="geography"
+            >
+
+                <span class="nav-icon">
+
+                    <i class="fa-solid fa-earth-asia"></i>
+
+                </span>
+
+                <span class="nav-text">
+                    Geography
+                </span>
+
+            </button>
+
+
+
+            <!-- ANALYTICS -->
+
+            <button
+                class="nav-item"
+                type="button"
+                data-page="analytics"
+            >
+
+                <span class="nav-icon">
+
+                    <i class="fa-solid fa-chart-line"></i>
+
+                </span>
+
+                <span class="nav-text">
+                    Analytics
+                </span>
+
+            </button>
+
+
+
+            <span class="nav-section-label second">
+
+                ACTION CENTER
+
+            </span>
+
+
+
+            <!-- RISK ALERTS -->
+
+            <button
+                class="nav-item"
+                type="button"
+                data-page="alerts"
+            >
+
+                <span class="nav-icon alert-icon">
+
+                    <i class="fa-solid fa-bell"></i>
+
+                </span>
+
+                <span class="nav-text">
+                    Risk Alerts
+                </span>
+
+                <span
+                    id="alertCount"
+                    class="alert-badge"
+                >
+                    0
+                </span>
+
+            </button>
+
+
+
+            <!-- AI INSIGHTS -->
+
+            <button
+                class="nav-item"
+                type="button"
+                data-page="insights"
+            >
+
+                <span class="nav-icon ai-icon">
+
+                    <i class="fa-solid fa-brain"></i>
+
+                </span>
+
+                <span class="nav-text">
+                    AI Insights
+                </span>
+
+            </button>
+
+
+
+            <!-- PREDICTION LAB -->
+
+            <button
+                class="nav-item"
+                type="button"
+                data-page="prediction"
+            >
+
+                <span class="nav-icon prediction-icon">
+
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+
+                </span>
+
+                <span class="nav-text">
+                    Prediction Lab
+                </span>
+
+            </button>
+
+        </nav>
+
+
+
+        <!-- SIDEBAR BOTTOM -->
+
+        <div class="sidebar-bottom">
+
+
+            <!-- SYSTEM STATUS -->
+
+            <button
+                id="systemStatusButton"
+                class="system-status"
+                type="button"
+            >
+
+                <div class="status-indicator">
+
+                    <span></span>
+
+                </div>
+
+
+                <div class="status-information">
+
+                    <span class="status-label">
+
+                        SYSTEM STATUS
+
+                    </span>
+
+                    <strong
+                        id="systemStatus"
+                    >
+
+                        Connecting...
+
+                    </strong>
+
+                </div>
+
+
+                <i class="fa-solid fa-chevron-right"></i>
+
+            </button>
+
+
+
+            <!-- API STATUS -->
+
+            <div class="api-mini-status">
+
+                <span class="api-dot"></span>
+
+                <span id="apiStatusText">
+
+                    API Engine Offline
+
+                </span>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- =====================================
+         MAIN AREA
+    ====================================== -->
+
+    <main class="main-content">
+
+
+
+        <!-- =================================
+             TOP HEADER
+        ================================== -->
+
+        <header class="top-header">
+
+
+            <!-- LEFT -->
+
+            <div class="header-left">
+
+
+                <div class="header-title">
+
+                    <span
+                        id="headerEyebrow"
+                        class="header-eyebrow"
+                    >
+
+                        CUSTOMER INTELLIGENCE
+
+                    </span>
+
+
+                    <h1
+                        id="pageTitle"
+                    >
+
+                        Churn Risk Dashboard
+
+                    </h1>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- RIGHT -->
+
+            <div class="header-right">
+
+
+                <!-- LIVE STATUS -->
+
+                <div class="live-status">
+
+                    <span class="live-dot"></span>
+
+                    <span>
+                        LIVE
+                    </span>
+
+                </div>
+
+
+
+                <!-- UPDATED -->
+
+                <button
+                    id="updatedButton"
+                    class="updated-info"
+                    type="button"
+                >
+
+                    <i class="fa-regular fa-clock"></i>
+
+                    <span>
+
+                        Updated:
+
+                        <strong
+                            id="lastUpdated"
+                        >
+
+                            --
+
+                        </strong>
+
+                    </span>
+
+                </button>
+
+
+
+                <!-- DATE FILTER -->
+
+                <button
+                    id="globalDateFilter"
+                    class="header-filter"
+                    type="button"
+                >
+
+                    <i class="fa-regular fa-calendar"></i>
+
+                    <span
+                        id="globalDateLabel"
+                    >
+
+                        Last 30 Days
+
+                    </span>
+
+                    <i class="fa-solid fa-chevron-down"></i>
+
+                </button>
+
+
+
+                <!-- REFRESH -->
+
+                <button
+                    id="refreshBtn"
+                    class="refresh-button"
+                    type="button"
+                >
+
+                    <i class="fa-solid fa-rotate"></i>
+
+                    <span>
+
+                        Refresh Data
+
+                    </span>
+
+                </button>
+
+
+
+                <!-- NOTIFICATIONS -->
+
+                <button
+                    id="notificationButton"
+                    class="icon-header-button"
+                    type="button"
+                    title="Notifications"
+                >
+
+                    <i class="fa-regular fa-bell"></i>
+
+                    <span
+                        id="notificationCount"
+                        class="notification-count"
+                    >
+                        0
+                    </span>
+
+                </button>
+
+
+
+                <!-- PROFILE -->
+
+                <button
+                    id="profileButton"
+                    class="profile-avatar"
+                    type="button"
+                >
+
+                    SK
+
+                </button>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =================================
+             PAGE WRAPPER
+        ================================== -->
+
+        <div class="page-wrapper">
+
+
+
+            <!-- =================================
+                 DASHBOARD PAGE
+            ================================== -->
+
+            <section
+                id="dashboardPage"
+                class="page dashboard-page active-page"
+            >
+
+
+                <!-- HERO -->
+
+                <div class="dashboard-hero">
+
+
+                    <div class="hero-content">
+
+
+                        <div class="hero-status">
+
+                            <span></span>
+
+                            RETENTION INTELLIGENCE / LIVE
+
+                        </div>
+
+
+                        <h2>
+
+                            See churn before<br>
+
+                            <span>
+                                customers leave.
+                            </span>
+
+                        </h2>
+
+
+                        <p>
+
+                            AI-powered customer intelligence that detects
+                            churn risk, reveals behavioral patterns and
+                            identifies revenue protection opportunities.
+
+                        </p>
+
+
+                        <div class="hero-actions">
+
+
+                            <button
+                                id="exploreCustomersBtn"
+                                class="primary-action"
+                                type="button"
+                            >
+
+                                Explore Customers
+
+                                <i class="fa-solid fa-arrow-right"></i>
+
+                            </button>
+
+
+                            <button
+                                id="viewInsightsBtn"
+                                class="secondary-action"
+                                type="button"
+                            >
+
+                                <i class="fa-solid fa-brain"></i>
+
+                                View AI Insights
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- LIVE AI CARD -->
+
+                    <div class="hero-ai-card">
+
+
+                        <div class="ai-card-header">
+
+                            <div>
+
+                                <span>
+
+                                    AI SIGNAL
+
+                                </span>
+
+                                <h3>
+
+                                    Retention Engine
+
+                                </h3>
+
+                            </div>
+
+
+                            <div class="ai-pulse">
+
+                                <span></span>
+
+                                LIVE
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="ai-score-area">
+
+
+                            <div class="ai-score">
+
+                                <span>
+
+                                    RISK INDEX
+
+                                </span>
+
+                                <strong
+                                    id="heroRiskIndex"
+                                >
+
+                                    --
+
+                                </strong>
+
+                            </div>
+
+
+                            <div
+                                id="riskGauge"
+                                class="risk-gauge"
+                            >
+
+                                <div class="gauge-center">
+
+                                    <span>
+
+                                        STABLE
+
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div
+                            id="aiSignalMessage"
+                            class="ai-signal-message"
+                        >
+
+                            <i class="fa-solid fa-sparkles"></i>
+
+                            AI analyzing customer behavior...
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================
+                     KPI SECTION
+                ================================== -->
+
+                <div class="section-heading">
+
+                    <div>
+
+                        <span class="section-eyebrow">
+
+                            LIVE METRICS
+
+                        </span>
+
+                        <h2>
+
+                            Retention Command Center
+
+                        </h2>
+
+                    </div>
+
+
+                    <button
+                        id="kpiFullscreenBtn"
+                        class="section-action"
+                        type="button"
+                    >
+
+                        <i class="fa-solid fa-expand"></i>
+
+                        Expand Metrics
+
+                    </button>
+
+                </div>
+
+
+
+                <div class="kpi-grid">
+
+
+
+                    <!-- TOTAL CUSTOMERS -->
+
+                    <button
+                        id="totalCustomersCard"
+                        class="kpi-card blue-card"
+                        type="button"
+                        data-kpi="customers"
+                    >
+
+                        <div class="kpi-card-top">
+
+                            <div class="kpi-icon blue">
+
+                                <i class="fa-solid fa-users"></i>
+
+                            </div>
+
+
+                            <div class="kpi-card-menu">
+
+                                <i class="fa-solid fa-ellipsis"></i>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="kpi-label">
+
+                            TOTAL CUSTOMERS
+
+                        </div>
+
+
+                        <strong
+                            id="total-customers"
+                            class="kpi-number"
+                        >
+
+                            --
+
+                        </strong>
+
+
+                        <div class="kpi-footer positive">
+
+                            <i class="fa-solid fa-arrow-trend-up"></i>
+
+                            <span
+                                id="customerGrowth"
+                            >
+
+                                Loading...
+
+                            </span>
+
+                        </div>
+
+                    </button>
+
+
+
+                    <!-- CHURN RATE -->
+
+                    <button
+                        id="churnRateCard"
+                        class="kpi-card purple-card"
+                        type="button"
+                        data-kpi="churn"
+                    >
+
+                        <div class="kpi-card-top">
+
+                            <div class="kpi-icon pink">
+
+                                <i class="fa-solid fa-user-minus"></i>
+
+                            </div>
+
+
+                            <div class="kpi-card-menu">
+
+                                <i class="fa-solid fa-ellipsis"></i>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="kpi-label">
+
+                            CHURN RATE
+
+                        </div>
+
+
+                        <strong
+                            id="churn-rate"
+                            class="kpi-number"
+                        >
+
+                            --
+
+                        </strong>
+
+
+                        <div class="kpi-footer negative">
+
+                            <i class="fa-solid fa-arrow-trend-down"></i>
+
+                            <span>
+
+                                Click for trend analysis
+
+                            </span>
+
+                        </div>
+
+                    </button>
+
+
+
+                    <!-- MONTHLY REVENUE -->
+
+                    <button
+                        id="revenueCard"
+                        class="kpi-card green-card"
+                        type="button"
+                        data-kpi="revenue"
+                    >
+
+                        <div class="kpi-card-top">
+
+                            <div class="kpi-icon green">
+
+                                <i class="fa-solid fa-indian-rupee-sign"></i>
+
+                            </div>
+
+
+                            <div class="kpi-card-menu">
+
+                                <i class="fa-solid fa-ellipsis"></i>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="kpi-label">
+
+                            MONTHLY REVENUE
+
+                        </div>
+
+
+                        <strong
+                            id="monthly-revenue"
+                            class="kpi-number"
+                        >
+
+                            --
+
+                        </strong>
+
+
+                        <div class="kpi-footer positive">
+
+                            <i class="fa-solid fa-chart-line"></i>
+
+                            <span>
+
+                                Current recurring revenue
+
+                            </span>
+
+                        </div>
+
+                    </button>
+
+
+
+                    <!-- PREDICTIONS -->
+
+                    <button
+                        id="predictionsCard"
+                        class="kpi-card orange-card"
+                        type="button"
+                        data-kpi="predictions"
+                    >
+
+                        <div class="kpi-card-top">
+
+                            <div class="kpi-icon orange">
+
+                                <i class="fa-solid fa-brain"></i>
+
+                            </div>
+
+
+                            <div class="kpi-card-menu">
+
+                                <i class="fa-solid fa-ellipsis"></i>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="kpi-label">
+
+                            ML PREDICTIONS
+
+                        </div>
+
+
+                        <strong
+                            id="total-predictions"
+                            class="kpi-number"
+                        >
+
+                            --
+
+                        </strong>
+
+
+                        <div class="kpi-footer neutral">
+
+                            <i class="fa-solid fa-microchip"></i>
+
+                            <span>
+
+                                AI model predictions
+
+                            </span>
+
+                        </div>
+
+                    </button>
+
+
+
+                    <!-- HIGH RISK -->
+
+                    <button
+                        id="highRiskCard"
+                        class="kpi-card danger-card"
+                        type="button"
+                        data-kpi="high-risk"
+                    >
+
+                        <div class="kpi-card-top">
+
+                            <div class="kpi-icon danger">
+
+                                <i class="fa-solid fa-triangle-exclamation"></i>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="kpi-label">
+
+                            HIGH RISK CUSTOMERS
+
+                        </div>
+
+
+                        <strong
+                            id="highRiskCustomers"
+                            class="kpi-number"
+                        >
+
+                            --
+
+                        </strong>
+
+
+                        <div class="kpi-footer negative">
+
+                            <i class="fa-solid fa-fire"></i>
+
+                            Immediate attention required
+
+                        </div>
+
+                    </button>
+
+
+
+                    <!-- REVENUE AT RISK -->
+
+                    <button
+                        id="revenueRiskCard"
+                        class="kpi-card cyan-card"
+                        type="button"
+                        data-kpi="revenue-risk"
+                    >
+
+                        <div class="kpi-card-top">
+
+                            <div class="kpi-icon cyan">
+
+                                <i class="fa-solid fa-shield-halved"></i>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="kpi-label">
+
+                            REVENUE AT RISK
+
+                        </div>
+
+
+                        <strong
+                            id="revenueAtRisk"
+                            class="kpi-number"
+                        >
+
+                            --
+
+                        </strong>
+
+
+                        <div class="kpi-footer warning">
+
+                            <i class="fa-solid fa-bolt"></i>
+
+                            Recoverable opportunity
+
+                        </div>
+
+                    </button>
+
+                </div>
+
+
+
+                <!-- =================================
+                     PRIMARY ANALYTICS
+                ================================== -->
+
+                <div class="analytics-grid primary-analytics">
+
+
+
+                    <!-- CHURN TREND -->
+
+                    <article class="analytics-card large-chart-card">
+
+
+                        <div class="card-header">
+
+
+                            <div>
+
+                                <span class="chart-eyebrow">
+
+                                    CUSTOMER BEHAVIOR
+
+                                </span>
+
+                                <h3>
+
+                                    Churn Trend Intelligence
+
+                                </h3>
+
+                                <p>
+
+                                    Track customer churn patterns over time
+
+                                </p>
+
+                            </div>
+
+
+                            <div class="card-actions">
+
+                                <button
+                                    class="chart-period active"
+                                    type="button"
+                                    data-period="30"
+                                >
+
+                                    30D
+
+                                </button>
+
+                                <button
+                                    class="chart-period"
+                                    type="button"
+                                    data-period="90"
+                                >
+
+                                    90D
+
+                                </button>
+
+                                <button
+                                    class="chart-period"
+                                    type="button"
+                                    data-period="365"
+                                >
+
+                                    1Y
+
+                                </button>
+
+                                <button
+                                    class="chart-expand"
+                                    type="button"
+                                    data-chart="churnTrend"
+                                >
+
+                                    <i class="fa-solid fa-expand"></i>
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="chart-interaction-hint">
+
+                            <i class="fa-solid fa-hand-pointer"></i>
+
+                            Click any data point to investigate
+
+                        </div>
+
+
+                        <div class="chart-container tall">
+
+                            <canvas
+                                id="churnTrendChart"
+                            ></canvas>
+
+                        </div>
+
+                    </article>
+
+
+
+                    <!-- RISK DISTRIBUTION -->
+
+                    <article class="analytics-card risk-distribution-card">
+
+
+                        <div class="card-header">
+
+                            <div>
+
+                                <span class="chart-eyebrow">
+
+                                    RISK INTELLIGENCE
+
+                                </span>
+
+                                <h3>
+
+                                    Risk Distribution
+
+                                </h3>
+
+                                <p>
+
+                                    Customer exposure by probability
+
+                                </p>
+
+                            </div>
+
+
+                            <button
+                                class="chart-expand"
+                                type="button"
+                                data-chart="riskDistribution"
+                            >
+
+                                <i class="fa-solid fa-expand"></i>
+
+                            </button>
+
+                        </div>
+
+
+                        <div class="risk-chart-main">
+
+                            <canvas
+                                id="riskDistributionChart"
+                            ></canvas>
+
+                        </div>
+
+
+                        <div
+                            id="riskLegend"
+                            class="interactive-legend"
+                        >
+
+                            <button
+                                type="button"
+                                data-risk="low"
+                            >
+
+                                <span class="legend-dot low"></span>
+
+                                Low Risk
+
+                                <strong
+                                    id="lowRiskCount"
+                                >
+
+                                    --
+
+                                </strong>
+
+                            </button>
+
+
+                            <button
+                                type="button"
+                                data-risk="medium"
+                            >
+
+                                <span class="legend-dot medium"></span>
+
+                                Medium Risk
+
+                                <strong
+                                    id="mediumRiskCount"
+                                >
+
+                                    --
+
+                                </strong>
+
+                            </button>
+
+
+                            <button
+                                type="button"
+                                data-risk="high"
+                            >
+
+                                <span class="legend-dot high"></span>
+
+                                High Risk
+
+                                <strong
+                                    id="highRiskCount"
+                                >
+
+                                    --
+
+                                </strong>
+
+                            </button>
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+
+
+                <!-- =================================
+                     SECONDARY ANALYTICS
+                ================================== -->
+
+                <div class="analytics-grid secondary-analytics">
+
+
+                    <!-- CONTRACT -->
+
+                    <article class="analytics-card">
+
+
+                        <div class="card-header">
+
+                            <div>
+
+                                <span class="chart-eyebrow">
+
+                                    CONTRACT INTELLIGENCE
+
+                                </span>
+
+                                <h3>
+
+                                    Churn by Contract
+
+                                </h3>
+
+                            </div>
+
+
+                            <button
+                                class="chart-expand"
+                                type="button"
+                                data-chart="contract"
+                            >
+
+                                <i class="fa-solid fa-expand"></i>
+
+                            </button>
+
+                        </div>
+
+
+                        <div class="chart-container">
+
+                            <canvas
+                                id="contractChart"
+                            ></canvas>
+
+                        </div>
+
+                    </article>
+
+
+
+                    <!-- PAYMENT -->
+
+                    <article class="analytics-card">
+
+
+                        <div class="card-header">
+
+                            <div>
+
+                                <span class="chart-eyebrow">
+
+                                    PAYMENT INTELLIGENCE
+
+                                </span>
+
+                                <h3>
+
+                                    Payment Behavior
+
+                                </h3>
+
+                            </div>
+
+
+                            <button
+                                class="chart-expand"
+                                type="button"
+                                data-chart="payment"
+                            >
+
+                                <i class="fa-solid fa-expand"></i>
+
+                            </button>
+
+                        </div>
+
+
+                        <div class="chart-container">
+
+                            <canvas
+                                id="paymentChart"
+                            ></canvas>
+
+                        </div>
+
+                    </article>
+
+
+
+                    <!-- TENURE -->
+
+                    <article class="analytics-card">
+
+
+                        <div class="card-header">
+
+                            <div>
+
+                                <span class="chart-eyebrow">
+
+                                    LIFECYCLE INTELLIGENCE
+
+                                </span>
+
+                                <h3>
+
+                                    Churn by Tenure
+
+                                </h3>
+
+                            </div>
+
+
+                            <button
+                                class="chart-expand"
+                                type="button"
+                                data-chart="tenure"
+                            >
+
+                                <i class="fa-solid fa-expand"></i>
+
+                            </button>
+
+                        </div>
+
+
+                        <div class="chart-container">
+
+                            <canvas
+                                id="tenureChart"
+                            ></canvas>
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+
+
+                <!-- =================================
+                     HIGH RISK COMMAND CENTER
+                ================================== -->
+
+                <section class="high-risk-section">
+
+
+                    <div class="section-heading">
+
+                        <div>
+
+                            <span class="section-eyebrow danger-text">
+
+                                PRIORITY ACTIONS
+
+                            </span>
+
+                            <h2>
+
+                                Customers Requiring Attention
+
+                            </h2>
+
+                            <p>
+
+                                Click any customer to open their complete
+                                churn intelligence profile.
+
+                            </p>
+
+                        </div>
+
+
+                        <div class="section-controls">
+
+                            <button
+                                id="refreshRiskBtn"
+                                class="outline-button"
+                                type="button"
+                            >
+
+                                <i class="fa-solid fa-rotate"></i>
+
+                                Refresh
+
+                            </button>
+
+
+                            <button
+                                id="viewAllRiskBtn"
+                                class="primary-action small"
+                                type="button"
+                            >
+
+                                View All Customers
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="high-risk-table-card">
+
+
+                        <div class="table-toolbar">
+
+
+                            <div class="table-search">
+
+                                <i class="fa-solid fa-magnifying-glass"></i>
+
+                                <input
+                                    id="dashboardCustomerSearch"
+                                    type="text"
+                                    placeholder="Search customer..."
+                                >
+
+                            </div>
+
+
+                            <div class="table-filter-group">
+
+                                <button
+                                    class="table-filter active"
+                                    type="button"
+                                    data-filter="all"
+                                >
+
+                                    All
+
+                                </button>
+
+                                <button
+                                    class="table-filter"
+                                    type="button"
+                                    data-filter="high"
+                                >
+
+                                    High Risk
+
+                                </button>
+
+                                <button
+                                    class="table-filter"
+                                    type="button"
+                                    data-filter="medium"
+                                >
+
+                                    Medium
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="table-wrapper">
+
+
+                            <table
+                                id="highRiskTable"
+                                class="data-table"
+                            >
+
+                                <thead>
+
+                                    <tr>
+
+                                        <th>
+                                            CUSTOMER
+                                        </th>
+
+                                        <th>
+                                            LOCATION
+                                        </th>
+
+                                        <th>
+                                            TENURE
+                                        </th>
+
+                                        <th>
+                                            CONTRACT
+                                        </th>
+
+                                        <th>
+                                            MONTHLY VALUE
+                                        </th>
+
+                                        <th>
+                                            CHURN PROBABILITY
+                                        </th>
+
+                                        <th>
+                                            RISK
+                                        </th>
+
+                                        <th>
+                                            ACTION
+                                        </th>
+
+                                    </tr>
+
+                                </thead>
+
+
+                                <tbody
+                                    id="risk-body"
+                                >
+
+                                    <tr>
+
+                                        <td
+                                            colspan="8"
+                                            class="table-loading"
+                                        >
+
+                                            Loading AI intelligence...
+
+                                        </td>
+
+                                    </tr>
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+            </section>
+
+
+
+            <!-- =================================
+                 CUSTOMERS PAGE
+            ================================== -->
+
+            <section
+                id="customersPage"
+                class="page"
+            >
+
+
+                <div class="page-heading">
+
+                    <div>
+
+                        <span class="section-eyebrow">
+
+                            CUSTOMER DATABASE
+
+                        </span>
+
+                        <h2>
+
+                            Customer Intelligence Explorer
+
+                        </h2>
+
+                        <p>
+
+                            Search, filter and investigate every customer.
+
+                        </p>
+
+                    </div>
+
+
+                    <div class="page-actions">
+
+                        <button
+                            id="exportCustomersBtn"
+                            class="outline-button"
+                            type="button"
+                        >
+
+                            <i class="fa-solid fa-file-export"></i>
+
+                            Export
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- CUSTOMER FILTERS -->
+
+                <div class="advanced-filter-bar">
+
+
+                    <div class="filter-search">
+
+                        <i class="fa-solid fa-magnifying-glass"></i>
+
+                        <input
+                            id="customerSearch"
+                            type="text"
+                            placeholder="Search by customer name or ID..."
+                        >
+
+                    </div>
+
+
+                    <select
+                        id="riskFilter"
+                    >
+
+                        <option value="all">
+
+                            All Risk Levels
+
+                        </option>
+
+                        <option value="high">
+
+                            High Risk
+
+                        </option>
+
+                        <option value="medium">
+
+                            Medium Risk
+
+                        </option>
+
+                        <option value="low">
+
+                            Low Risk
+
+                        </option>
+
+                    </select>
+
+
+                    <select
+                        id="locationFilter"
+                    >
+
+                        <option value="all">
+
+                            All Locations
+
+                        </option>
+
+                    </select>
+
+
+                    <select
+                        id="contractFilter"
+                    >
+
+                        <option value="all">
+
+                            All Contracts
+
+                        </option>
+
+                    </select>
+
+
+                    <button
+                        id="clearCustomerFilters"
+                        class="clear-filter-button"
+                        type="button"
+                    >
+
+                        <i class="fa-solid fa-xmark"></i>
+
+                        Clear
+
+                    </button>
+
+                </div>
+
+
+
+                <!-- CUSTOMER SUMMARY -->
+
+                <div class="customer-mini-kpis">
+
+
+                    <div>
+
+                        <span>
+                            FILTERED CUSTOMERS
+                        </span>
+
+                        <strong
+                            id="filteredCustomerCount"
+                        >
+
+                            --
+
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            AVG CHURN PROBABILITY
+                        </span>
+
+                        <strong
+                            id="averageChurnProbability"
+                        >
+
+                            --
+
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            HIGH RISK VALUE
+                        </span>
+
+                        <strong
+                            id="highRiskRevenue"
+                        >
+
+                            --
+
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- CUSTOMER TABLE -->
+
+                <div class="customer-table-card">
+
+
+                    <div class="table-wrapper">
+
+
+                        <table
+                            class="data-table"
+                        >
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>
+                                        CUSTOMER
+                                    </th>
+
+                                    <th>
+                                        LOCATION
+                                    </th>
+
+                                    <th>
+                                        TENURE
+                                    </th>
+
+                                    <th>
+                                        CONTRACT
+                                    </th>
+
+                                    <th>
+                                        PAYMENT
+                                    </th>
+
+                                    <th>
+                                        MONTHLY CHARGES
+                                    </th>
+
+                                    <th>
+                                        CHURN PROBABILITY
+                                    </th>
+
+                                    <th>
+                                        RISK LEVEL
+                                    </th>
+
+                                    <th>
+                                        INTELLIGENCE
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+
+                            <tbody
+                                id="customerTableBody"
+                            >
+
+                                <tr>
+
+                                    <td colspan="9">
+
+                                        Loading customers...
+
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+
+
+                    <!-- PAGINATION -->
+
+                    <div class="pagination">
+
+                        <span
+                            id="paginationInfo"
+                        >
+
+                            Loading...
+
+                        </span>
+
+
+                        <div
+                            id="paginationControls"
+                            class="pagination-controls"
+                        >
+
+                            <button
+                                id="previousPageBtn"
+                                type="button"
+                            >
+
+                                <i class="fa-solid fa-chevron-left"></i>
+
+                            </button>
+
+
+                            <div
+                                id="pageNumbers"
+                            ></div>
+
+
+                            <button
+                                id="nextPageBtn"
+                                type="button"
+                            >
+
+                                <i class="fa-solid fa-chevron-right"></i>
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================
+                 GEOGRAPHY PAGE
+            ================================== -->
+
+            <section
+                id="geographyPage"
+                class="page"
+            >
+
+
+                <div class="page-heading">
+
+                    <div>
+
+                        <span class="section-eyebrow">
+
+                            GEOGRAPHIC INTELLIGENCE
+
+                        </span>
+
+                        <h2>
+
+                            Churn Across Locations
+
+                        </h2>
+
+                        <p>
+
+                            Discover which states and regions have the
+                            highest customer churn exposure.
+
+                        </p>
+
+                    </div>
+
+
+                    <button
+                        id="refreshGeoBtn"
+                        class="outline-button"
+                        type="button"
+                    >
+
+                        <i class="fa-solid fa-rotate"></i>
+
+                        Refresh Geography
+
+                    </button>
+
+                </div>
+
+
+
+                <!-- GEO KPI -->
+
+                <div class="geo-kpi-row">
+
+
+                    <button
+                        id="highestRiskLocationCard"
+                        class="geo-stat-card"
+                        type="button"
+                    >
+
+                        <span>
+
+                            HIGHEST RISK LOCATION
+
+                        </span>
+
+                        <strong
+                            id="highestRiskLocation"
+                        >
+
+                            --
+
+                        </strong>
+
+                    </button>
+
+
+                    <button
+                        id="lowestRetentionCard"
+                        class="geo-stat-card"
+                        type="button"
+                    >
+
+                        <span>
+
+                            LOWEST RETENTION
+
+                        </span>
+
+                        <strong
+                            id="lowestRetentionLocation"
+                        >
+
+                            --
+
+                        </strong>
+
+                    </button>
+
+
+                    <button
+                        id="highestRevenueStateCard"
+                        class="geo-stat-card"
+                        type="button"
+                    >
+
+                        <span>
+
+                            HIGHEST REVENUE
+
+                        </span>
+
+                        <strong
+                            id="highestRevenueLocation"
+                        >
+
+                            --
+
+                        </strong>
+
+                    </button>
+
+                </div>
+
+
+
+                <div class="geo-grid">
+
+
+                    <!-- MAP -->
+
+                    <article class="analytics-card geo-map-card">
+
+                        <div class="card-header">
+
+                            <div>
+
+                                <span class="chart-eyebrow">
+
+                                    LOCATION HEATMAP
+
+                                </span>
+
+                                <h3>
+
+                                    Customer Risk Map
+
+                                </h3>
+
+                                <p>
+
+                                    Click a state to drill into customers.
+
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div
+                            id="indiaMap"
+                            class="interactive-map"
+                        >
+
+                            <!-- JS WILL BUILD MAP -->
+
+                        </div>
+
+                    </article>
+
+
+
+                    <!-- STATE CHART -->
+
+                    <article class="analytics-card">
+
+                        <div class="card-header">
+
+                            <div>
+
+                                <span class="chart-eyebrow">
+
+                                    REGIONAL COMPARISON
+
+                                </span>
+
+                                <h3>
+
+                                    Churn Rate by State
+
+                                </h3>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="chart-container tall">
+
+                            <canvas
+                                id="geographyChart"
+                            ></canvas>
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+
+
+                <!-- STATE TABLE -->
+
+                <article class="analytics-card table-analytics-card">
+
+
+                    <div class="card-header">
+
+                        <div>
+
+                            <span class="chart-eyebrow">
+
+                                REGIONAL PERFORMANCE
+
+                            </span>
+
+                            <h3>
+
+                                State Intelligence Records
+
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="table-wrapper">
+
+                        <table
+                            class="data-table"
+                        >
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>
+                                        LOCATION
+                                    </th>
+
+                                    <th>
+                                        CUSTOMERS
+                                    </th>
+
+                                    <th>
+                                        CHURNED
+                                    </th>
+
+                                    <th>
+                                        CHURN RATE
+                                    </th>
+
+                                    <th>
+                                        REVENUE
+                                    </th>
+
+                                    <th>
+                                        RISK LEVEL
+                                    </th>
+
+                                    <th>
+                                        EXPLORE
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+
+                            <tbody
+                                id="geo-body"
+                            ></tbody>
+
+                        </table>
+
+                    </div>
+
+                </article>
+
+            </section>
+
+
+
+                        <!-- =================================
+                 ANALYTICS PAGE
+            ================================== -->
+            <section id="analyticsPage" class="page">
+                <div class="page-heading analytics-heading">
+                    <div>
+                        <span class="section-eyebrow">ADVANCED ANALYTICS</span>
+                        <h2>Customer Behavior Laboratory</h2>
+                        <p>Interactive churn intelligence across customer behavior, value and risk drivers.</p>
+                    </div>
+                    <div class="analytics-controls">
+                        <button class="analytics-filter active" type="button" data-analytics-period="30">30 Days</button>
+                        <button class="analytics-filter" type="button" data-analytics-period="90">90 Days</button>
+                        <button class="analytics-filter" type="button" data-analytics-period="all">All Data</button>
+                    </div>
+                </div>
+
+                <div class="analytics-summary-row">
+                    <button class="analytics-mini-stat" type="button" data-analytics-action="risk">
+                        <span><i class="fa-solid fa-triangle-exclamation"></i> Highest risk cohort</span>
+                        <strong id="analyticsHighestRisk">--</strong>
+                        <small>Click to inspect customers</small>
+                    </button>
+                    <button class="analytics-mini-stat" type="button" data-analytics-action="revenue">
+                        <span><i class="fa-solid fa-indian-rupee-sign"></i> Revenue exposed</span>
+                        <strong id="analyticsRevenueExposed">--</strong>
+                        <small>Interactive revenue-risk view</small>
+                    </button>
+                    <button class="analytics-mini-stat" type="button" data-analytics-action="segment">
+                        <span><i class="fa-solid fa-layer-group"></i> Critical segment</span>
+                        <strong id="analyticsCriticalCount">--</strong>
+                        <small>Click to open high-risk list</small>
+                    </button>
+                </div>
+
+                <div class="analytics-grid analytics-lab-grid">
+                    <article class="analytics-card analytics-hero-card">
+                        <div class="card-header">
+                            <div>
+                                <span class="chart-eyebrow">BEHAVIOR PATTERN</span>
+                                <h3>Customer Churn Heatmap</h3>
+                                <p class="analytics-card-subtitle">Tenure vs contract commitment — darker cells indicate greater churn exposure.</p>
+                            </div>
+                            <span class="interactive-pill"><i class="fa-solid fa-hand-pointer"></i> Interactive</span>
+                        </div>
+                        <div id="customerHeatmap" class="customer-heatmap"></div>
+                    </article>
+
+                    <article class="analytics-card analytics-chart-card">
+                        <div class="card-header">
+                            <div>
+                                <span class="chart-eyebrow">REVENUE INTELLIGENCE</span>
+                                <h3>Revenue vs Churn</h3>
+                                <p class="analytics-card-subtitle">Every point is a customer. Click a point for the full customer profile.</p>
+                            </div>
+                            <button class="chart-action" type="button" data-expand-chart="revenueChurn"><i class="fa-solid fa-expand"></i></button>
+                        </div>
+                        <div class="chart-container analytics-chart-container"><canvas id="revenueChurnChart"></canvas></div>
+                    </article>
+
+                    <article class="analytics-card analytics-chart-card">
+                        <div class="card-header">
+                            <div>
+                                <span class="chart-eyebrow">CUSTOMER SEGMENTS</span>
+                                <h3>Risk Distribution</h3>
+                                <p class="analytics-card-subtitle">Click any segment to jump directly into that customer cohort.</p>
+                            </div>
+                            <button class="chart-action" type="button" data-expand-chart="segment"><i class="fa-solid fa-expand"></i></button>
+                        </div>
+                        <div class="chart-container analytics-chart-container"><canvas id="segmentChart"></canvas></div>
+                    </article>
+
+                    <article class="analytics-card analytics-driver-card">
+                        <div class="card-header">
+                            <div>
+                                <span class="chart-eyebrow">CHURN DRIVERS</span>
+                                <h3>Why Customers Leave</h3>
+                                <p class="analytics-card-subtitle">Ranked behavioral signals driving the current churn model.</p>
+                            </div>
+                            <span class="live-dot-label"><span></span> Model signals</span>
+                        </div>
+                        <div id="churnDrivers" class="churn-drivers"></div>
+                    </article>
+                </div>
+            </section>
+
+
+<!-- =================================
+                 ALERTS PAGE
+            ================================== -->
+
+            <section
+                id="alertsPage"
+                class="page"
+            >
+
+
+                <div class="page-heading">
+
+                    <div>
+
+                        <span class="section-eyebrow danger-text">
+
+                            ACTION REQUIRED
+
+                        </span>
+
+                        <h2>
+
+                            Live Risk Alerts
+
+                        </h2>
+
+                        <p>
+
+                            Customers and trends requiring immediate attention.
+
+                        </p>
+
+                    </div>
+
+
+                    <button
+                        id="markAllAlertsRead"
+                        class="outline-button"
+                        type="button"
+                    >
+
+                        Mark All Read
+
+                    </button>
+
+                </div>
+
+
+
+                <div
+                    id="alertsContainer"
+                    class="alerts-container"
+                >
+
+                    <!-- JS -->
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================
+                 AI INSIGHTS PAGE
+            ================================== -->
+
+            <section
+                id="insightsPage"
+                class="page"
+            >
+
+
+                <div class="page-heading">
+
+                    <div>
+
+                        <span class="section-eyebrow">
+
+                            ARTIFICIAL INTELLIGENCE
+
+                        </span>
+
+                        <h2>
+
+                            AI Retention Insights
+
+                        </h2>
+
+                        <p>
+
+                            Automated findings generated from customer behavior.
+
+                        </p>
+
+                    </div>
+
+
+                    <button
+                        id="generateInsightsBtn"
+                        class="primary-action"
+                        type="button"
+                    >
+
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+
+                        Generate Insights
+
+                    </button>
+
+                </div>
+
+
+
+                <div
+                    id="aiInsightsGrid"
+                    class="ai-insights-grid"
+                >
+
+                    <!-- JS -->
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================
+                 PREDICTION PAGE
+            ================================== -->
+
+            <section
+                id="predictionPage"
+                class="page"
+            >
+
+
+                <div class="page-heading">
+
+                    <div>
+
+                        <span class="section-eyebrow">
+
+                            ML PREDICTION ENGINE
+
+                        </span>
+
+                        <h2>
+
+                            Churn Prediction Lab
+
+                        </h2>
+
+                        <p>
+
+                            Run the AI model and analyze churn probability.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="prediction-layout">
+
+
+                    <!-- FORM -->
+
+                    <div class="prediction-form-card">
+
+
+                        <div class="prediction-card-header">
+
+                            <i class="fa-solid fa-brain"></i>
+
+                            <div>
+
+                                <h3>
+
+                                    Customer Profile
+
+                                </h3>
+
+                                <p>
+
+                                    Enter customer information
+
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <form
+                            id="predictionForm"
+                        >
+
+
+                            <div class="form-grid">
+
+
+                                <div class="form-group">
+
+                                    <label>
+
+                                        Gender
+
+                                    </label>
+
+                                    <select
+                                        id="predictGender"
+                                        required
+                                    >
+
+                                        <option value="Female">
+
+                                            Female
+
+                                        </option>
+
+                                        <option value="Male">
+
+                                            Male
+
+                                        </option>
+
+                                    </select>
+
+                                </div>
+
+
+
+                                <div class="form-group">
+
+                                    <label>
+
+                                        Senior Citizen
+
+                                    </label>
+
+                                    <select
+                                        id="predictSeniorCitizen"
+                                        required
+                                    >
+
+                                        <option value="0">
+
+                                            No
+
+                                        </option>
+
+                                        <option value="1">
+
+                                            Yes
+
+                                        </option>
+
+                                    </select>
+
+                                </div>
+
+
+
+                                <div class="form-group">
+
+                                    <label>
+
+                                        Partner
+
+                                    </label>
+
+                                    <select
+                                        id="predictPartner"
+                                        required
+                                    >
+
+                                        <option value="Yes">
+
+                                            Yes
+
+                                        </option>
+
+                                        <option value="No">
+
+                                            No
+
+                                        </option>
+
+                                    </select>
+
+                                </div>
+
+
+
+                                <div class="form-group">
+
+                                    <label>
+
+                                        Dependents
+
+                                    </label>
+
+                                    <select
+                                        id="predictDependents"
+                                        required
+                                    >
+
+                                        <option value="Yes">
+
+                                            Yes
+
+                                        </option>
+
+                                        <option value="No">
+
+                                            No
+
+                                        </option>
+
+                                    </select>
+
+                                </div>
+
+
+
+                                <div class="form-group">
+
+                                    <label>
+
+                                        Tenure
+
+                                    </label>
+
+                                    <input
+                                        id="predictTenure"
+                                        type="number"
+                                        min="0"
+                                        max="100"
+                                        value="12"
+                                        required
+                                    >
+
+                                </div>
+
+
+
+                                <div class="form-group">
+
+                                    <label>
+
+                                        Contract
+
+                                    </label>
+
+                                    <select
+                                        id="predictContract"
+                                        required
+                                    >
+
+                                        <option value="Month-to-month">
+
+                                            Month-to-month
+
+                                        </option>
+
+                                        <option value="One year">
+
+                                            One year
+
+                                        </option>
+
+                                        <option value="Two year">
+
+                                            Two year
+
+                                        </option>
+
+                                    </select>
+
+                                </div>
+
+
+
+                                <div class="form-group">
+
+                                    <label>
+
+                                        Payment Method
+
+                                    </label>
+
+                                    <select
+                                        id="predictPaymentMethod"
+                                        required
+                                    >
+
+                                        <option value="Electronic check">
+
+                                            Electronic check
+
+                                        </option>
+
+                                        <option value="Mailed check">
+
+                                            Mailed check
+
+                                        </option>
+
+                                        <option value="Bank transfer (automatic)">
+
+                                            Bank transfer
+
+                                        </option>
+
+                                        <option value="Credit card (automatic)">
+
+                                            Credit card
+
+                                        </option>
+
+                                    </select>
+
+                                </div>
+
+
+
+                                <div class="form-group">
+
+                                    <label>
+
+                                        Monthly Charges
+
+                                    </label>
+
+                                    <input
+                                        id="predictMonthlyCharges"
+                                        type="number"
+                                        min="0"
+                                        step="0.01"
+                                        value="70"
+                                        required
+                                    >
+
+                                </div>
+
+                            </div>
+
+
+
+                            <button
+                                class="primary-action prediction-submit"
+                                type="submit"
+                            >
+
+                                <i class="fa-solid fa-wand-magic-sparkles"></i>
+
+                                Predict Churn Risk
+
+                            </button>
+
+                        </form>
+
+                    </div>
+
+
+
+                    <!-- RESULT -->
+
+                    <div
+                        id="predictionResult"
+                        class="prediction-result-card"
+                    >
+
+
+                        <div class="prediction-empty">
+
+                            <div>
+
+                                <i class="fa-solid fa-chart-simple"></i>
+
+                            </div>
+
+                            <h3>
+
+                                Prediction Ready
+
+                            </h3>
+
+                            <p>
+
+                                Run the model to generate AI-powered
+                                churn intelligence.
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+
+<!-- =========================================
+     CUSTOMER INTELLIGENCE MODAL
+========================================== -->
+
+<div
+    id="customerModal"
+    class="modal"
+>
+
+
+    <div
+        class="modal-backdrop"
+        data-close-modal="customerModal"
+    ></div>
+
+
+    <div class="modal-dialog customer-modal-dialog">
+
+
+        <button
+            class="modal-close"
+            type="button"
+            data-close-modal="customerModal"
+        >
+
+            <i class="fa-solid fa-xmark"></i>
+
+        </button>
+
+
+        <div
+            id="customerModalContent"
+        >
+
+            <!-- JS -->
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================
+     CHART MODAL
+========================================== -->
+
+<div
+    id="chartModal"
+    class="modal"
+>
+
+
+    <div
+        class="modal-backdrop"
+        data-close-modal="chartModal"
+    ></div>
+
+
+    <div class="modal-dialog chart-modal-dialog">
+
+
+        <button
+            class="modal-close"
+            type="button"
+            data-close-modal="chartModal"
+        >
+
+            <i class="fa-solid fa-xmark"></i>
+
+        </button>
+
+
+        <div class="chart-modal-header">
+
+            <span>
+
+                DEEP ANALYSIS
+
+            </span>
+
+            <h2
+                id="chartModalTitle"
+            >
+
+                Chart Analysis
+
+            </h2>
+
+        </div>
+
+
+        <div class="chart-modal-body">
+
+            <canvas
+                id="expandedChart"
+            ></canvas>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================
+     NOTIFICATIONS PANEL
+========================================== -->
+
+<div
+    id="notificationPanel"
+    class="notification-panel"
+>
+
+
+    <div class="notification-panel-header">
+
+        <div>
+
+            <span>
+
+                ACTIVITY
+
+            </span>
+
+            <h3>
+
+                Notifications
+
+            </h3>
+
+        </div>
+
+
+        <button
+            id="closeNotifications"
+            type="button"
+        >
+
+            <i class="fa-solid fa-xmark"></i>
+
+        </button>
+
+    </div>
+
+
+    <div
+        id="notificationList"
+        class="notification-list"
+    >
+
+        <!-- JS -->
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================
+     TOAST
+========================================== -->
+
+<div
+    id="toast"
+    class="toast"
+>
+
+
+    <div
+        id="toastIcon"
+        class="toast-icon"
+    >
+
+        <i class="fa-solid fa-circle-check"></i>
+
+    </div>
+
+
+    <div>
+
+        <strong
+            id="toastTitle"
+        >
+
+            Success
+
+        </strong>
+
+        <p
+            id="toastMessage"
+        >
+
+            Operation completed successfully.
+
+        </p>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================
+     COMMAND PALETTE
+========================================== -->
+
+<div
+    id="commandPalette"
+    class="command-palette hidden"
+>
+
+
+    <div
+        class="command-backdrop"
+    ></div>
+
+
+    <div class="command-box">
+
+
+        <div class="command-search">
+
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            <input
+                id="commandSearch"
+                type="text"
+                placeholder="Search dashboard actions..."
+            >
+
+        </div>
+
+
+        <div class="command-list">
+
+
+            <button
+                type="button"
+                data-command="dashboard"
+            >
+
+                <i class="fa-solid fa-chart-pie"></i>
+
+                Open Dashboard
+
+            </button>
+
+
+            <button
+                type="button"
+                data-command="customers"
+            >
+
+                <i class="fa-solid fa-users"></i>
+
+                Explore Customers
+
+            </button>
+
+
+            <button
+                type="button"
+                data-command="geography"
+            >
+
+                <i class="fa-solid fa-earth-asia"></i>
+
+                View Geography
+
+            </button>
+
+
+            <button
+                type="button"
+                data-command="refresh"
+            >
+
+                <i class="fa-solid fa-rotate"></i>
+
+                Refresh Intelligence
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================
+     CHART.JS
+========================================== -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/chart.js"
+></script>
+
+
+<!-- =========================================
+     JAVASCRIPT
+========================================== -->
+
+<script src="script.js"></script>
+
+
+</body>
+
+</html>

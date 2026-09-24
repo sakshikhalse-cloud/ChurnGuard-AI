@@ -268,64 +268,6 @@ def get_customers(limit: int = 1000):
             detail=str(e)
         )
 # ============================================================
-# CONTRACT ANALYTICS
-# ============================================================
-
-@app.get("/analytics/contract")
-def contract_analytics():
-    try:
-        with engine.connect() as connection:
-
-            result = connection.execute(
-                text("""
-                    SELECT
-                        COALESCE(
-                            contract_type,
-                            'Unknown'
-                        ) AS contract_type,
-
-                        COUNT(*) AS total_customers,
-
-                        SUM(
-                            CASE
-                                WHEN churn_status = TRUE
-                                THEN 1
-                                ELSE 0
-                            END
-                        ) AS churned_customers,
-
-                        ROUND(
-                            (
-                                SUM(
-                                    CASE
-                                        WHEN churn_status = TRUE
-                                        THEN 1
-                                        ELSE 0
-                                    END
-                                ) * 100.0
-                                / NULLIF(COUNT(*), 0)
-                            )::numeric,
-                            2
-                        ) AS churn_rate
-
-                    FROM customers
-
-                    GROUP BY contract_type
-
-                    ORDER BY churn_rate DESC NULLS LAST
-                """)
-            )
-
-            return rows_to_dicts(result)
-
-    except Exception as e:
-        raise HTTPException(
-            status_code=500,
-            detail=str(e)
-        )
-
-
-# ============================================================
 # PAYMENT ANALYTICS
 # ============================================================
 

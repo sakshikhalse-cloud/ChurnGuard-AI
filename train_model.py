@@ -49,6 +49,6 @@ accuracy = accuracy_score(y_test, predictions)
 print(f"Model Accuracy: {accuracy:.4f}")
 
 Path("backend/models").mkdir(parents=True, exist_ok=True)
-joblib.dump(model, "backend/models/churn_model.pkl")
+joblib.dump(model, "backend/models/churn_model.pkl", compress=3)
 
 print("Model saved successfully!")

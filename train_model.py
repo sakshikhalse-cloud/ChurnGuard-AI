@@ -7,6 +7,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score
 from dotenv import load_dotenv
 import os
+from pathlib import Path
 
 load_dotenv("backend/.env")
 
@@ -47,6 +48,7 @@ accuracy = accuracy_score(y_test, predictions)
 
 print(f"Model Accuracy: {accuracy:.4f}")
 
-joblib.dump(model, "models/churn_model.pkl")
+Path("backend/models").mkdir(parents=True, exist_ok=True)
+joblib.dump(model, "backend/models/churn_model.pkl")
 
 print("Model saved successfully!")

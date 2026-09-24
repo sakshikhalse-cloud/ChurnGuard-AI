@@ -1,5 +1,6 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy import create_engine, text
 from dotenv import load_dotenv
@@ -7,12 +8,14 @@ from pathlib import Path
 import os
 import joblib
 import numpy as np
+import pandas as pd
 
 # ============================================================
 # CONFIGURATION
 # ============================================================
 
 BASE_DIR = Path(__file__).resolve().parent
+FRONTEND_DIR = BASE_DIR.parent / "frontend"
 BACKEND_DIR = Path(__file__).resolve().parent
 
 load_dotenv(BACKEND_DIR / ".env")
@@ -76,10 +79,17 @@ def rows_to_dicts(result):
 # ROOT + HEALTH
 # ============================================================
 
+app.mount(
+    "/static",
+    StaticFiles(directory=FRONTEND_DIR),
+    name="static"
+)
+
+
 @app.get("/")
 def root():
     return FileResponse(
-        BASE_DIR / "frontend" / "index.html"
+        FRONTEND_DIR / "index.html"
     )
 
 
@@ -646,18 +656,34 @@ def get_segments():
 def predict_churn(data: dict):
 
     try:
-        monthly_charges = float(
-            data.get("monthly_charges", 0)
-        )
+        age = float(data.get("age", 0))
+        tenure_months = float(data.get("tenure_months", 0))
+        monthly_charges = float(data.get("monthly_charges", 0))
+        total_charges = float(data.get("total_charges", 0))
+        support_tickets = float(data.get("support_tickets", 0))
 
-        support_tickets = float(
-            data.get("support_tickets", 0)
-        )
+        if age < 0:
+            raise HTTPException(
+                status_code=400,
+                detail="Age cannot be negative."
+            )
+
+        if tenure_months < 0:
+            raise HTTPException(
+                status_code=400,
+                detail="Tenure months cannot be negative."
+            )
 
         if monthly_charges < 0:
             raise HTTPException(
                 status_code=400,
                 detail="Monthly charges cannot be negative."
+            )
+
+        if total_charges < 0:
+            raise HTTPException(
+                status_code=400,
+                detail="Total charges cannot be negative."
             )
 
         if support_tickets < 0:
@@ -666,12 +692,13 @@ def predict_churn(data: dict):
                 detail="Support tickets cannot be negative."
             )
 
-        features = np.array([
-            [
-                monthly_charges,
-                support_tickets
-            ]
-        ])
+        features = np.array([[
+            age,
+            tenure_months,
+            monthly_charges,
+            total_charges,
+            support_tickets
+        ]])
 
         prediction = int(
             model.predict(features)[0]
@@ -706,636 +733,3 @@ def predict_churn(data: dict):
             status_code=500,
             detail=str(e)
         )
-# ============================================================
-# RETENTIONAI — REAL ANALYTICS API
-# PostgreSQL-powered analytics for ChurnGuard frontend
-# ============================================================
-
-
-def rows_to_dicts(result):
-    """
-    Convert SQLAlchemy query results into JSON-safe dictionaries.
-    """
-    columns = result.keys()
-
-    return [
-        {
-            key: (
-                float(value)
-                if isinstance(value, (float,))
-                else value
-            )
-            for key, value in zip(columns, row)
-        }
-        for row in result.fetchall()
-    ]
-
-
-@app.get("/analytics/summary")
-def analytics_summary():
-
-    try:
-
-        with engine.connect() as connection:
-
-            result = connection.execute(
-                text("""
-                    SELECT
-                        COUNT(*) AS total_customers,
-
-                        COUNT(*) FILTER (
-                            WHERE churn_status = TRUE
-                        ) AS churned_customers,
-
-                        ROUND(
-                            (
-                                COUNT(*) FILTER (
-                                    WHERE churn_status = TRUE
-                                ) * 100.0
-                                /
-                                NULLIF(COUNT(*), 0)
-                            )::numeric,
-                            2
-                        ) AS churn_rate,
-
-                        ROUND(
-                            COALESCE(
-                                SUM(
-                                    monthly_charges
-                                ) FILTER (
-                                    WHERE churn_status = TRUE
-                                ),
-                                0
-                            )::numeric,
-                            2
-                        ) AS revenue_at_risk,
-
-                        ROUND(
-                            COALESCE(
-                                AVG(monthly_charges),
-                                0
-                            )::numeric,
-                            2
-                        ) AS average_monthly_charge
-
-                    FROM customers
-                """)
-            )
-
-            row = result.mappings().one()
-
-            return {
-                key: (
-                    float(value)
-                    if value is not None
-                    else 0
-                )
-                for key, value in row.items()
-            }
-
-    except Exception as e:
-
-        return {
-            "error": str(e)
-        }
-
-
-# ============================================================
-# HEATMAP
-# Tenure group × Contract type
-# ============================================================
-
-@app.get("/analytics/heatmap")
-def analytics_heatmap():
-
-    try:
-
-        with engine.connect() as connection:
-
-            result = connection.execute(
-                text("""
-                    SELECT
-
-                        CASE
-
-                            WHEN tenure <= 12
-                                THEN '0–12 Months'
-
-                            WHEN tenure <= 24
-                                THEN '13–24 Months'
-
-                            WHEN tenure <= 48
-                                THEN '25–48 Months'
-
-                            ELSE '49–72 Months'
-
-                        END AS tenure_group,
-
-
-                        COALESCE(
-                            contract_type,
-                            'Unknown'
-                        ) AS contract_type,
-
-
-                        COUNT(*) AS total_customers,
-
-
-                        COUNT(*) FILTER (
-                            WHERE churn_status = TRUE
-                        ) AS churned_customers,
-
-
-                        ROUND(
-                            (
-                                COUNT(*) FILTER (
-                                    WHERE churn_status = TRUE
-                                ) * 100.0
-                                /
-                                NULLIF(COUNT(*), 0)
-                            )::numeric,
-                            2
-                        ) AS churn_rate
-
-                    FROM customers
-
-                    GROUP BY
-                        tenure_group,
-                        contract_type
-
-                    ORDER BY
-                        tenure_group,
-                        contract_type
-                """)
-            )
-
-            return rows_to_dicts(result)
-
-    except Exception as e:
-
-        return {
-            "error": str(e)
-        }
-
-
-# ============================================================
-# REVENUE VS CHURN
-# REAL CUSTOMER-LEVEL DATA
-# ============================================================
-
-@app.get("/analytics/revenue-churn")
-def analytics_revenue_churn():
-
-    try:
-
-        with engine.connect() as connection:
-
-            result = connection.execute(
-                text("""
-                    SELECT
-                        customer_id,
-                        customer_name,
-                        monthly_charges,
-                        tenure,
-                        geography,
-                        contract_type,
-                        support_tickets,
-
-                        CASE
-                            WHEN churn_status = TRUE
-                                THEN 100
-                            ELSE 0
-                        END AS churn_risk,
-
-                        churn_status
-
-                    FROM customers
-
-                    ORDER BY
-                        monthly_charges DESC
-
-                    LIMIT 500
-                """)
-            )
-
-            return rows_to_dicts(result)
-
-    except Exception as e:
-
-        return {
-            "error": str(e)
-        }
-
-
-# ============================================================
-# RISK / CUSTOMER SEGMENTS
-# REAL POSTGRESQL AGGREGATION
-# ============================================================
-
-@app.get("/analytics/risk-segments")
-def analytics_risk_segments():
-
-    try:
-
-        with engine.connect() as connection:
-
-            result = connection.execute(
-                text("""
-                    SELECT
-
-                        CASE
-
-                            WHEN churn_status = FALSE
-                                THEN 'Stable'
-
-                            WHEN monthly_charges < (
-                                SELECT
-                                    AVG(monthly_charges)
-                                FROM customers
-                            )
-                                THEN 'Watchlist'
-
-                            ELSE 'Critical'
-
-                        END AS segment,
-
-                        COUNT(*) AS customer_count,
-
-                        ROUND(
-                            (
-                                COUNT(*) * 100.0
-                                /
-                                NULLIF(
-                                    (
-                                        SELECT COUNT(*)
-                                        FROM customers
-                                    ),
-                                    0
-                                )
-                            )::numeric,
-                            2
-                        ) AS percentage
-
-                    FROM customers
-
-                    GROUP BY segment
-
-                    ORDER BY
-
-                        CASE segment
-
-                            WHEN 'Stable' THEN 1
-                            WHEN 'Watchlist' THEN 2
-                            WHEN 'Critical' THEN 3
-
-                        END
-                """)
-            )
-
-            return rows_to_dicts(result)
-
-    except Exception as e:
-
-        return {
-            "error": str(e)
-        }
-
-
-# ============================================================
-# CHURN DRIVERS
-# REAL DATABASE CALCULATIONS
-# ============================================================
-
-@app.get("/analytics/drivers")
-def analytics_drivers():
-
-    try:
-
-        with engine.connect() as connection:
-
-            contract_result = connection.execute(
-                text("""
-                    SELECT
-                        'Month-to-month contracts'
-                            AS driver,
-
-                        COALESCE(
-                            MAX(
-                                ROUND(
-                                    (
-                                        COUNT(*) FILTER (
-                                            WHERE churn_status = TRUE
-                                        ) * 100.0
-                                        /
-                                        NULLIF(COUNT(*), 0)
-                                    )::numeric,
-                                    2
-                                )
-                            ),
-                            0
-                        ) AS score
-
-                    FROM customers
-
-                    WHERE contract_type = 'Month-to-month'
-                """)
-            ).mappings().one()
-
-
-            payment_result = connection.execute(
-                text("""
-                    SELECT
-                        'Electronic check usage'
-                            AS driver,
-
-                        COALESCE(
-                            MAX(
-                                ROUND(
-                                    (
-                                        COUNT(*) FILTER (
-                                            WHERE churn_status = TRUE
-                                        ) * 100.0
-                                        /
-                                        NULLIF(COUNT(*), 0)
-                                    )::numeric,
-                                    2
-                                )
-                            ),
-                            0
-                        ) AS score
-
-                    FROM customers
-
-                    WHERE payment_method = 'Electronic check'
-                """)
-            ).mappings().one()
-
-
-            tenure_result = connection.execute(
-                text("""
-                    SELECT
-                        'Low tenure customers'
-                            AS driver,
-
-                        COALESCE(
-                            ROUND(
-                                (
-                                    COUNT(*) FILTER (
-                                        WHERE churn_status = TRUE
-                                    ) * 100.0
-                                    /
-                                    NULLIF(COUNT(*), 0)
-                                )::numeric,
-                                2
-                            ),
-                            0
-                        ) AS score
-
-                    FROM customers
-
-                    WHERE tenure <= 12
-                """)
-            ).mappings().one()
-
-
-            charge_result = connection.execute(
-                text("""
-                    SELECT
-                        'High monthly charges'
-                            AS driver,
-
-                        COALESCE(
-                            ROUND(
-                                (
-                                    COUNT(*) FILTER (
-                                        WHERE churn_status = TRUE
-                                    ) * 100.0
-                                    /
-                                    NULLIF(COUNT(*), 0)
-                                )::numeric,
-                                2
-                            ),
-                            0
-                        ) AS score
-
-                    FROM customers
-
-                    WHERE monthly_charges > (
-                        SELECT AVG(monthly_charges)
-                        FROM customers
-                    )
-                """)
-            ).mappings().one()
-
-
-            drivers = [
-
-                {
-                    "driver":
-                        contract_result["driver"],
-
-                    "score":
-                        float(
-                            contract_result["score"] or 0
-                        ),
-
-                    "icon":
-                        "fa-file-contract",
-
-                    "message":
-                        "Actual churn rate among month-to-month contract customers."
-                },
-
-                {
-                    "driver":
-                        payment_result["driver"],
-
-                    "score":
-                        float(
-                            payment_result["score"] or 0
-                        ),
-
-                    "icon":
-                        "fa-credit-card",
-
-                    "message":
-                        "Actual churn rate among electronic check customers."
-                },
-
-                {
-                    "driver":
-                        tenure_result["driver"],
-
-                    "score":
-                        float(
-                            tenure_result["score"] or 0
-                        ),
-
-                    "icon":
-                        "fa-hourglass-start",
-
-                    "message":
-                        "Actual churn rate among customers with 12 months or less tenure."
-                },
-
-                {
-                    "driver":
-                        charge_result["driver"],
-
-                    "score":
-                        float(
-                            charge_result["score"] or 0
-                        ),
-
-                    "icon":
-                        "fa-indian-rupee-sign",
-
-                    "message":
-                        "Actual churn rate among customers above the average monthly charge."
-                }
-
-            ]
-
-
-            return sorted(
-                drivers,
-                key=lambda item:
-                    item["score"],
-                reverse=True
-            )
-
-    except Exception as e:
-
-        return {
-            "error": str(e)
-        }
-
-
-# ============================================================
-# GEOGRAPHY ANALYTICS
-# REAL STATE / LOCATION CHURN DATA
-# ============================================================
-
-@app.get("/analytics/geography-real")
-def analytics_geography_real():
-
-    try:
-
-        with engine.connect() as connection:
-
-            result = connection.execute(
-                text("""
-                    SELECT
-                        COALESCE(
-                            geography,
-                            'Unknown'
-                        ) AS geography,
-
-                        COUNT(*) AS total_customers,
-
-                        COUNT(*) FILTER (
-                            WHERE churn_status = TRUE
-                        ) AS churned_customers,
-
-                        ROUND(
-                            (
-                                COUNT(*) FILTER (
-                                    WHERE churn_status = TRUE
-                                ) * 100.0
-                                /
-                                NULLIF(COUNT(*), 0)
-                            )::numeric,
-                            2
-                        ) AS churn_rate,
-
-                        ROUND(
-                            COALESCE(
-                                SUM(monthly_charges) FILTER (
-                                    WHERE churn_status = TRUE
-                                ),
-                                0
-                            )::numeric,
-                            2
-                        ) AS revenue_at_risk
-
-                    FROM customers
-
-                    GROUP BY geography
-
-                    ORDER BY
-                        churn_rate DESC,
-                        total_customers DESC
-                """)
-            )
-
-            return rows_to_dicts(result)
-
-    except Exception as e:
-
-        return {
-            "error": str(e)
-        }
-
-
-# ============================================================
-# HIGH-RISK CUSTOMERS
-# REAL DATABASE DATA
-# ============================================================
-
-@app.get("/analytics/high-risk-real")
-def analytics_high_risk_real():
-
-    try:
-
-        with engine.connect() as connection:
-
-            result = connection.execute(
-                text("""
-                    SELECT
-                        customer_id,
-                        customer_name,
-                        geography,
-                        contract_type,
-                        payment_method,
-                        monthly_charges,
-                        tenure,
-                        support_tickets,
-                        churn_status
-
-                    FROM customers
-
-                    WHERE churn_status = TRUE
-
-                    ORDER BY
-                        monthly_charges DESC,
-                        support_tickets DESC
-
-                    LIMIT 100
-                """)
-            )
-
-            return rows_to_dicts(result)
-
-    except Exception as e:
-
-        return {
-            "error": str(e)
-        }
-# ============================================================
-# FRONTEND STATIC ASSETS
-# ============================================================
-
-@app.get("/style.css")
-def serve_stylesheet():
-    return FileResponse(
-        BASE_DIR / "frontend" / "style.css",
-        media_type="text/css"
-    )
-
-
-@app.get("/script.js")
-def serve_javascript():
-    return FileResponse(
-        BASE_DIR / "frontend" / "script.js",
-        media_type="application/javascript"
-    )
